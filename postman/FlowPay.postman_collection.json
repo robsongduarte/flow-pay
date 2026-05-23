@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "3f89b2b5-c0ce-4a0d-9cc2-cf0ced1b4e31",
+    "name": "FlowPay API",
+    "description": "Colecao de chamadas da API REST da FlowPay.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Atendentes",
+      "item": [
+        {
+          "name": "Criar Atendente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Novo Atendente\",\n  \"timeAtendimento\": \"CARTOES\",\n  \"ativo\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/atendentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendentes"
+              ]
+            },
+            "description": "Cria um novo atendente."
+          }
+        },
+        {
+          "name": "Listar Atendentes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/atendentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendentes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ativar Atendente",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/atendentes/{{atendenteId}}/ativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendentes",
+                "{{atendenteId}}",
+                "ativar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Desativar Atendente",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/atendentes/{{atendenteId}}/desativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendentes",
+                "{{atendenteId}}",
+                "desativar"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Atendimentos",
+      "item": [
+        {
+          "name": "Criar Atendimento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomeCliente\": \"Cliente Teste\",\n  \"documentoCliente\": \"12345678900\",\n  \"assunto\": \"PROBLEMA_CARTAO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/atendimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendimentos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar Atendimentos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/atendimentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendimentos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Finalizar Atendimento",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/atendimentos/{{atendimentoId}}/finalizar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "atendimentos",
+                "{{atendimentoId}}",
+                "finalizar"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Consultar Dashboard",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dashboard Stream (SSE)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "stream"
+              ]
+            },
+            "description": "Canal Server-Sent Events para atualizacao em tempo real."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Swagger/OpenAPI",
+      "item": [
+        {
+          "name": "Abrir Swagger UI",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/swagger-ui.html",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "swagger-ui.html"
+              ]
+            }
+          }
+        },
+        {
+          "name": "OpenAPI JSON",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v3/api-docs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v3",
+                "api-docs"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/flow-pay",
+      "type": "string"
+    },
+    {
+      "key": "atendenteId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "atendimentoId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}

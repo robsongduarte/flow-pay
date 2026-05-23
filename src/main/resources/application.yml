@@ -1,0 +1,27 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: flowpay
+  datasource:
+    url: ${FLOWPAY_DB_URL:jdbc:postgresql://localhost:5432/flowpay}
+    username: ${FLOWPAY_DB_USER:flowpay}
+    password: ${FLOWPAY_DB_PASSWORD:flowpay}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /flow-pay
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

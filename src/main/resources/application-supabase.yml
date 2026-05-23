@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+flowpay:
+  supabase:
+    mode: ${SUPABASE_MODE:direct}
+    project-ref: ${SUPABASE_PROJECT_REF:aybsdrynbbnhwnxfhafp}
+    db-name: ${SUPABASE_DB_NAME:postgres}
+    sslmode: ${SUPABASE_SSLMODE:require}
+    direct:
+      host: ${SUPABASE_DIRECT_HOST:db.${SUPABASE_PROJECT_REF:aybsdrynbbnhwnxfhafp}.supabase.co}
+      port: ${SUPABASE_DIRECT_PORT:5432}
+      user: ${SUPABASE_DIRECT_USER:postgres}
+    pooler:
+      host: ${SUPABASE_POOLER_HOST:aws-0-${SUPABASE_REGION:us-east-1}.pooler.supabase.com}
+      port: ${SUPABASE_POOLER_PORT:5432}
+      user: ${SUPABASE_POOLER_USER:postgres.${SUPABASE_PROJECT_REF:aybsdrynbbnhwnxfhafp}}
