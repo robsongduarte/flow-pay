@@ -65,3 +65,16 @@ Defina o backend no arquivo `front/.env`:
 ```env
 VITE_API_BASE_URL=http://localhost:8080/flow-pay
 ```
+
+## Deploy no Render (API)
+
+No serviço Web da API (`Root Directory: api`), configure:
+
+- `SPRING_PROFILES_ACTIVE=supabase` (se for usar Supabase) ou remova se usar banco do proprio Render
+- `DATABASE_URL` (fornecido automaticamente quando conectar PostgreSQL do Render)
+
+Opcional:
+
+- `DATABASE_USER`
+- `DATABASE_PASSWORD`
+- `RENDER_DB_SSLMODE=require`
