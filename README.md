@@ -39,6 +39,16 @@ Swagger:
 
 - `http://localhost:8080/flow-pay/swagger-ui.html`
 
+## Subir API + Postgres com Docker Compose
+
+No diretorio `api/`:
+
+```bash
+docker compose up --build
+```
+
+A API sobe com limite de memoria de container em `512m` e heap JVM em `-Xmx384m`.
+
 ## Subir Front
 
 1. Entre em `front/`

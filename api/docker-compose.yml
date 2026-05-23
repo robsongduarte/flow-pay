@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:16
@@ -16,6 +15,27 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowpay-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      FLOWPAY_DB_URL: jdbc:postgresql://postgres:5432/flowpay
+      FLOWPAY_DB_USER: flowpay
+      FLOWPAY_DB_PASSWORD: flowpay
+      JAVA_TOOL_OPTIONS: -Xms128m -Xmx384m -XX:MaxMetaspaceSize=128m
+    ports:
+      - "8080:8080"
+    mem_limit: 512m
+    mem_reservation: 384m
+    restart: unless-stopped
 
 volumes:
   flowpay-postgres-data:
