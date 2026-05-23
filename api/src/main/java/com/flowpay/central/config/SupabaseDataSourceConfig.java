@@ -96,8 +96,8 @@ public class SupabaseDataSourceConfig {
                     "flowpay.supabase.pooler.host"
             ));
             if (!StringUtils.hasText(host)) {
-                String region = lowerTrim(getProperty(environment, "us-east-1", "SUPABASE_REGION"));
-                host = "aws-0-" + region + ".pooler.supabase.com";
+                throw new IllegalStateException(
+                        "SUPABASE_POOLER_HOST deve ser informado quando SUPABASE_MODE=pooler.");
             }
             port = getProperty(environment, "5432", "SUPABASE_POOLER_PORT", "flowpay.supabase.pooler.port");
         }
