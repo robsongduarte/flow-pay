@@ -42,6 +42,7 @@ public class SupabaseDataSourceConfig {
         if (!StringUtils.hasText(jdbcUrl)) {
             jdbcUrl = buildJdbcUrl(environment, mode, projectRef, database, sslMode);
         }
+        jdbcUrl = normalizeJdbcUrl(jdbcUrl);
 
         if (!StringUtils.hasText(username)) {
             username = buildUsername(environment, mode, projectRef);
@@ -137,5 +138,22 @@ public class SupabaseDataSourceConfig {
     private String lowerTrim(String value) {
         String normalized = trim(value);
         return normalized == null ? null : normalized.toLowerCase(Locale.ROOT);
+    }
+
+    private String normalizeJdbcUrl(String url) {
+        String normalized = trim(url);
+        if (!StringUtils.hasText(normalized)) {
+            return normalized;
+        }
+        if (normalized.startsWith("jdbc:postgresql://")) {
+            return normalized;
+        }
+        if (normalized.startsWith("postgresql://")) {
+            return "jdbc:" + normalized;
+        }
+        if (normalized.startsWith("postgres://")) {
+            return "jdbc:" + normalized.replaceFirst("^postgres://", "postgresql://");
+        }
+        return normalized;
     }
 }
