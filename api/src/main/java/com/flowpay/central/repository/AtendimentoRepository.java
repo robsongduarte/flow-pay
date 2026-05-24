@@ -16,6 +16,12 @@ import org.springframework.data.repository.query.Param;
 public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> {
 
     List<Atendimento> findAllByOrderByCriadoEmDesc();
+    List<Atendimento> findByStatusOrderByCriadoEmDesc(StatusAtendimento status);
+    List<Atendimento> findByTimeAtendimentoOrderByCriadoEmDesc(TimeAtendimento timeAtendimento);
+    List<Atendimento> findByStatusAndTimeAtendimentoOrderByCriadoEmDesc(
+            StatusAtendimento status,
+            TimeAtendimento timeAtendimento
+    );
 
     long countByStatus(StatusAtendimento status);
 

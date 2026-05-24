@@ -58,8 +58,8 @@ public class AtendimentoService {
     }
 
     @Transactional(readOnly = true)
-    public List<AtendimentoResponse> listar() {
-        return atendimentoRepository.findAllByOrderByCriadoEmDesc()
+    public List<AtendimentoResponse> listar(StatusAtendimento status, TimeAtendimento timeAtendimento) {
+        return buscarAtendimentos(status, timeAtendimento)
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -163,5 +163,18 @@ public class AtendimentoService {
                 .iniciadoEm(atendimento.getIniciadoEm())
                 .finalizadoEm(atendimento.getFinalizadoEm())
                 .build();
+    }
+
+    private List<Atendimento> buscarAtendimentos(StatusAtendimento status, TimeAtendimento timeAtendimento) {
+        if (status != null && timeAtendimento != null) {
+            return atendimentoRepository.findByStatusAndTimeAtendimentoOrderByCriadoEmDesc(status, timeAtendimento);
+        }
+        if (status != null) {
+            return atendimentoRepository.findByStatusOrderByCriadoEmDesc(status);
+        }
+        if (timeAtendimento != null) {
+            return atendimentoRepository.findByTimeAtendimentoOrderByCriadoEmDesc(timeAtendimento);
+        }
+        return atendimentoRepository.findAllByOrderByCriadoEmDesc();
     }
 }
