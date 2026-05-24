@@ -26,3 +26,7 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+flowpay:
+  cors:
+    allowed-origins: ${FLOWPAY_CORS_ALLOWED_ORIGINS:http://localhost:5173}

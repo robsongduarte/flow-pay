@@ -6,14 +6,14 @@ import {
   desativarAtendente,
 } from "../api/atendenteApi";
 
-const TIMES = ["CARTOES", "EMPRESTIMOS", "OUTROS"];
+const TIMES = ["CARTOES", "EMPRESTIMOS", "OUTROS_ASSUNTOS"];
 
 export default function AtendentesPage() {
   const [atendentes, setAtendentes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ nome: "", time: TIMES[0] });
+  const [form, setForm] = useState({ nome: "", timeAtendimento: TIMES[0] });
   const [submitting, setSubmitting] = useState(false);
 
   const load = useCallback(async () => {
@@ -49,7 +49,7 @@ export default function AtendentesPage() {
     setSubmitting(true);
     try {
       await createAtendente(form);
-      setForm({ nome: "", time: TIMES[0] });
+      setForm({ nome: "", timeAtendimento: TIMES[0] });
       setShowForm(false);
       load();
     } catch (e) {
@@ -96,8 +96,10 @@ export default function AtendentesPage() {
               Time
             </span>
             <select
-              value={form.time}
-              onChange={(e) => setForm({ ...form, time: e.target.value })}
+              value={form.timeAtendimento}
+              onChange={(e) =>
+                setForm({ ...form, timeAtendimento: e.target.value })
+              }
               className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-slate-400 focus:outline-none"
             >
               {TIMES.map((t) => (
@@ -141,7 +143,9 @@ export default function AtendentesPage() {
                 <td className="px-4 py-3 font-medium text-slate-900">
                   {a.nome}
                 </td>
-                <td className="px-4 py-3 text-slate-600">{a.time}</td>
+                <td className="px-4 py-3 text-slate-600">
+                  {a.timeAtendimento ?? a.time}
+                </td>
                 <td className="px-4 py-3">
                   <span
                     className={`rounded-full px-2.5 py-1 text-xs font-medium ${

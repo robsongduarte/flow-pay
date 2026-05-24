@@ -23,7 +23,7 @@ export default function AtendimentoTable({ atendimentos, onFinalizar }) {
             <th className="px-4 py-3">Assunto</th>
             <th className="px-4 py-3">Time</th>
             <th className="px-4 py-3">Status</th>
-            <th className="px-4 py-3 text-right">Ações</th>
+            <th className="px-4 py-3 text-right">Acoes</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100">
@@ -34,7 +34,9 @@ export default function AtendimentoTable({ atendimentos, onFinalizar }) {
               </td>
               <td className="px-4 py-3 text-slate-600">{a.documentoCliente}</td>
               <td className="px-4 py-3 text-slate-600">{a.assunto}</td>
-              <td className="px-4 py-3 text-slate-600">{a.time ?? "—"}</td>
+              <td className="px-4 py-3 text-slate-600">
+                {a.timeAtendimento ?? a.time ?? "-"}
+              </td>
               <td className="px-4 py-3">
                 <span
                   className={`rounded-full px-2.5 py-1 text-xs font-medium ${

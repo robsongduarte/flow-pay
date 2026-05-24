@@ -7,4 +7,4 @@ export const createAtendimento = (payload) =>
   axiosClient.post("/atendimentos", payload).then((r) => r.data);
 
 export const finalizarAtendimento = (id) =>
-  axiosClient.post(`/atendimentos/${id}/finalizar`).then((r) => r.data);
+  axiosClient.patch(`/atendimentos/${id}/finalizar`).then((r) => r.data);

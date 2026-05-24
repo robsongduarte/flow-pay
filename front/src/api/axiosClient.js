@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const baseURL =
+const rawBaseURL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL) ||
-  "https://api-flow-pay.onrender.com/flow-pay";
+  "http://localhost:8080/flow-pay";
+
+const normalizedBaseURL = rawBaseURL.replace(/\/+$/, "");
+const baseURL = normalizedBaseURL.endsWith("/api")
+  ? normalizedBaseURL
+  : `${normalizedBaseURL}/api`;
 
 
 const axiosClient = axios.create({

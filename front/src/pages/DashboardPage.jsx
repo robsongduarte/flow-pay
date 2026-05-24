@@ -8,7 +8,7 @@ export default function DashboardPage() {
   const totalAguardando = data?.totalAguardando ?? 0;
   const totalEmAtendimento = data?.totalEmAtendimento ?? 0;
   const totalFinalizados = data?.totalFinalizados ?? 0;
-  const times = data?.times ?? [];
+  const times = data?.porTime ?? data?.times ?? [];
 
   return (
     <div className="space-y-6">
@@ -59,7 +59,7 @@ export default function DashboardPage() {
         <h2 className="mb-3 text-lg font-semibold text-slate-900">Times</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {times.map((t) => (
-            <TeamStatusCard key={t.nome ?? t.id} team={t} />
+            <TeamStatusCard key={t.time ?? t.nome ?? t.id} team={t} />
           ))}
           {!times.length && (
             <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">

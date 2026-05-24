@@ -7,7 +7,7 @@ export const createAtendente = (payload) =>
   axiosClient.post("/atendentes", payload).then((r) => r.data);
 
 export const ativarAtendente = (id) =>
-  axiosClient.post(`/atendentes/${id}/ativar`).then((r) => r.data);
+  axiosClient.patch(`/atendentes/${id}/ativar`).then((r) => r.data);
 
 export const desativarAtendente = (id) =>
-  axiosClient.post(`/atendentes/${id}/desativar`).then((r) => r.data);
+  axiosClient.patch(`/atendentes/${id}/desativar`).then((r) => r.data);

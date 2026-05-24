@@ -1,11 +1,12 @@
 export default function TeamStatusCard({ team }) {
   const aguardando = team.aguardando ?? 0;
   const emAtendimento = team.emAtendimento ?? 0;
-  const finalizada = team.finalizada ?? team.finalizados ?? 0;
+  const finalizados = team.finalizados ?? team.finalizada ?? 0;
   const disponiveis = team.atendentesDisponiveis ?? 0;
   const ocupados = team.atendentesOcupados ?? 0;
   const capacidadeTotal = team.capacidadeTotal ?? 0;
   const capacidadeUtilizada = team.capacidadeUtilizada ?? 0;
+  const timeLabel = team.time ?? team.nome ?? "-";
 
   const semAtendentes = disponiveis === 0;
   const filaCheia = aguardando >= 10;
@@ -25,7 +26,7 @@ export default function TeamStatusCard({ team }) {
       }`}
     >
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-900">{team.nome}</h3>
+        <h3 className="text-lg font-semibold text-slate-900">{timeLabel}</h3>
         {semAtendentes && (
           <span className="rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium text-red-700">
             Sem atendentes
@@ -41,7 +42,7 @@ export default function TeamStatusCard({ team }) {
       <div className="mt-4 grid grid-cols-3 gap-3">
         <Stat label="Aguardando" value={aguardando} highlight={filaCheia} />
         <Stat label="Em atendimento" value={emAtendimento} />
-        <Stat label="Finalizados" value={finalizada} />
+        <Stat label="Finalizados" value={finalizados} />
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3 text-sm">

@@ -8,7 +8,7 @@ import AtendimentoTable from "../components/AtendimentoTable";
 
 const ASSUNTOS = ["PROBLEMA_CARTAO", "CONTRATACAO_EMPRESTIMO", "OUTROS"];
 const STATUSES = ["AGUARDANDO", "EM_ATENDIMENTO", "FINALIZADO"];
-const TIMES = ["CARTOES", "EMPRESTIMOS", "OUTROS"];
+const TIMES = ["CARTOES", "EMPRESTIMOS", "OUTROS_ASSUNTOS"];
 
 export default function AtendimentosPage() {
   const [atendimentos, setAtendimentos] = useState([]);
