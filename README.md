@@ -19,7 +19,9 @@ flow-pay/
     package.json
 ```
 
-## Subir API
+## Subir Local
+
+### API
 
 1. Entre em `api/`
 2. Configure `api/.env` (base no `api/.env.example`)
@@ -39,7 +41,23 @@ Swagger:
 
 - `http://localhost:8080/flow-pay/swagger-ui.html`
 
-## Subir API + Postgres com Docker Compose
+### Front
+
+1. Entre em `front/`
+2. Instale dependencias e rode:
+
+```bash
+npm install
+npm run dev
+```
+
+3. Configure `front/.env`:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080/flow-pay
+```
+
+## Subir com Docker
 
 No diretorio `api/`:
 
@@ -47,34 +65,15 @@ No diretorio `api/`:
 docker compose up --build
 ```
 
-A API sobe com limite de memoria de container em `512m` e heap JVM em `-Xmx384m`.
+Isso sobe API + PostgreSQL localmente.
 
-## Subir Front
+URLs:
 
-1. Entre em `front/`
-2. Instale dependencias
-3. Rode em desenvolvimento
+- API: `http://localhost:8080/flow-pay`
+- Swagger: `http://localhost:8080/flow-pay/swagger-ui.html`
+
+Para parar:
 
 ```bash
-npm install
-npm run dev
+docker compose down
 ```
-
-Defina o backend no arquivo `front/.env`:
-
-```env
-VITE_API_BASE_URL=http://localhost:8080/flow-pay
-```
-
-## Deploy no Render (API)
-
-No serviço Web da API (`Root Directory: api`), configure:
-
-- `SPRING_PROFILES_ACTIVE=supabase` (se for usar Supabase) ou remova se usar banco do proprio Render
-- `DATABASE_URL` (fornecido automaticamente quando conectar PostgreSQL do Render)
-
-Opcional:
-
-- `DATABASE_USER`
-- `DATABASE_PASSWORD`
-- `RENDER_DB_SSLMODE=require`
