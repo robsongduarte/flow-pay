@@ -1,15 +1,18 @@
 package com.flowpay.central.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,8 +42,19 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, "Corpo da requisicao invalido.", null);
     }
 
+    @ExceptionHandler(AsyncRequestTimeoutException.class)
+    public ResponseEntity<?> handleAsyncTimeout(AsyncRequestTimeoutException ex, HttpServletRequest request) {
+        if (isSseRequest(request)) {
+            return ResponseEntity.noContent().build();
+        }
+        return buildResponse(HttpStatus.SERVICE_UNAVAILABLE, "Tempo limite da requisicao excedido.", null);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
+    public ResponseEntity<?> handleGeneric(Exception ex, HttpServletRequest request) {
+        if (isSseRequest(request)) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno do servidor.", null);
     }
 
@@ -57,5 +71,10 @@ public class GlobalExceptionHandler {
                 .validationErrors(validationErrors)
                 .build();
         return ResponseEntity.status(status).body(payload);
+    }
+
+    private boolean isSseRequest(HttpServletRequest request) {
+        String acceptHeader = request.getHeader("Accept");
+        return acceptHeader != null && acceptHeader.contains(MediaType.TEXT_EVENT_STREAM_VALUE);
     }
 }
