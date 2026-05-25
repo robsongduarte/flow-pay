@@ -3,6 +3,9 @@ spring:
     import: optional:file:.env[.properties]
   application:
     name: flowpay
+  mvc:
+    async:
+      request-timeout: -1
   datasource:
     url: ${FLOWPAY_DB_URL:jdbc:postgresql://localhost:5432/flowpay}
     username: ${FLOWPAY_DB_USER:flowpay}
