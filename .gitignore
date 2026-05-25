@@ -13,6 +13,8 @@ api/.mvn/wrapper/maven-wrapper.jar
 # Frontend (Vite/React)
 front/node_modules/
 front/dist/
+front/.output/
+front/.vercel/
 front/.env
 
 # OS / misc
